@@ -4,9 +4,11 @@ const app = express()
 const path = require('path')
 const ejsMate = require('ejs-mate')      //One of many engines which are used to parse and make sense of ejs
 const port = 5000
+const Image = require("./models/Image")
 require('dotenv').config()
 
 const {addImage} = require('./controllers/addImage')
+const { singleUpload } = require("./middlewares/multer")
 
 app.set('view engine', 'ejs')
 app.engine('ejs', ejsMate)
@@ -29,10 +31,14 @@ mongoose.connect(mongodbUrl).then(()=>{
 app.get('/new', (req, res)=> {
     res.render('addImageForm')
 })
-app.post('/new', addImage)
+app.post('/new',singleUpload, addImage);
 
-app.get('/', (req, res)=>{
-    res.render("home")
+// app.post('/upload', upload.single('image'), uploadImage)
+
+app.get('/', async (req, res)=>{
+    const data = await Image.find({})
+    console.log({data})
+    res.render("home", {data})
 })
 
 
