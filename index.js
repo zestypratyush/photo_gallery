@@ -6,6 +6,8 @@ const ejsMate = require('ejs-mate')      //One of many engines which are used to
 const port = 5000
 require('dotenv').config()
 
+const {addImage} = require('./controllers/addImage')
+
 app.set('view engine', 'ejs')
 app.engine('ejs', ejsMate)
 app.set('views', path.join(__dirname, 'views'))
@@ -14,7 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/public')))
 
 
-// configuring the mongoDB
+// MongoDB Configuration
 const mongodbUrl = process.env.MONGODB_URL
 mongoose.connect(mongodbUrl).then(()=>{
     console.log("MongoDB connected successfully...")
@@ -23,10 +25,16 @@ mongoose.connect(mongodbUrl).then(()=>{
 })
 
 
+// Route Configuration
+app.get('/new', (req, res)=> {
+    res.render('addImageForm')
+})
+app.post('/new', addImage)
 
 app.get('/', (req, res)=>{
-    res.send("Hello fucker!!")
+    res.render("home")
 })
+
 
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}...`)
