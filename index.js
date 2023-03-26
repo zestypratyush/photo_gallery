@@ -3,7 +3,7 @@ const mongoose  = require('mongoose')
 const app = express()
 const path = require('path')
 const ejsMate = require('ejs-mate')      //One of many engines which are used to parse and make sense of ejs
-const port = 5000
+const port = 5001
 const Image = require("./models/Image")
 require('dotenv').config()
 
@@ -38,7 +38,7 @@ app.post('/new',singleUpload, addImage);
 app.get('/', async (req, res)=>{
     const data = await Image.find({})
     console.log({data})
-    res.render("home", {data})
+    res.render("home", {data: data})
 })
 
 

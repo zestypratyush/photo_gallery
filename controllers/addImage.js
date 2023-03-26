@@ -18,13 +18,13 @@ async function addImage (req, res, next){
 
     const mycloud = await cloudinary.uploader.upload(fileUri.content);
 
-    // alert("Image uploaded successfully");
     await ImageSchema.create({
         image_name: file.originalname,
         image_url: mycloud.secure_url,
         date_of_upload: Date.now()
     })
-    res.redirect("/");
+      
+    res.redirect('/');
 }
 
 // function uploadImage()
