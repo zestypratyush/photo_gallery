@@ -8,7 +8,7 @@
     - Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <link rel="stylesheet" href="./CSS/home.css">
-  <link rel="stylesheet" href="../public/CSS/zoom.css">
+  <link rel="stylesheet" href="./CSS/zoom.css">
   <link rel="icon" type="image/x-icon" href="/Images/logo.png">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous" defer></script>
@@ -34,30 +34,32 @@
         </nav>
       </div>
     </header>
+
+
     <section>
-      <div class="container" id="zoom-image">
-  
-  
+      <div class="container">
+
+        <div class="full-img" id="fullImgBox">
+          <img src="<%= data[0].image_url%>" alt="<%= data[0].image_name %>" id="fullImg">
+          
+            <img src="/Images/del.png" alt="" id="trash-icon">
+          <span onclick="closeFullImg()">X</span>
+          
+        </div>
+
+
         <div class="row">
           <% for (let i = data.length-1; i >=0; i--) { %>
-          <div id="img-gallery" class="col-md-4 col-12 p-2 d-flex justify-content-center pop" onclick="handleClick(i)">
-            <img class="gallery-img" src="<%= data[i].image_url %>" alt="<%= data[i].image_name %>" width="100%">
+          <div class="col-md-4 col-12 p-2 d-flex justify-content-center">
+            <img class="img"  src="<%= data[i].image_url %>" alt="<%= data[i].image_name %>" width="100%" onclick="openFullImg(this.src)">
           </div>
           <% } %>
         </div>
+
+
+
       </div>
     </section>
-
-    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">              
-          <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <img src="" class="imagepreview" style="width: 100%;" >
-          </div>
-        </div>
-      </div>
-    </div>
 
     <footer class="mt-auto text-white-50">
       <p>Copyright &copy; <script>
@@ -69,53 +71,22 @@
   </div>
 
   <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+     const fullImgBox = document.getElementById('fullImgBox')
+     const fullImg = document.getElementById('fullImg')
 
-    // Next/previous controls
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
+     function openFullImg(pic) {
+      fullImgBox.style.display = "flex";
+      fullImg.src = pic;
+     }
 
-    // Thumbnail image controls
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
+     function closeFullImg() {
+      fullImgBox.style.display = "none";
+     }
 
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("demo");
-      let captionText = document.getElementById("caption");
-      if (n > slides.length) {
-        slideIndex = 1
-      }
-      if (n < 1) {
-        slideIndex = slides.length
-      }
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].className += " active";
-      captionText.innerHTML = dots[slideIndex - 1].alt;
-    }
+    
 
-    function handleClick(i) {
-      const imageModal = document.createElement('div')
-      imageModal.classList.add('image-modal')
-    }
-
-    $(function() {
-		$('.pop').on('click', function() {
-			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
-			$('#imagemodal').modal('show');   
-		});		
-});
   </script>
+  <script src=".js"></script>
 </body>
 
 </html>

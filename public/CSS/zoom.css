@@ -87,6 +87,3 @@
     flex-direction: row;
   }
 
-  .gallery-img:hover{
-    transform: scale(1.3) rotate(-5deg);
-  }
