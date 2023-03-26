@@ -35,6 +35,12 @@ app.post('/new',singleUpload, addImage);
 
 // app.post('/upload', upload.single('image'), uploadImage)
 
+app.get('/all',async(req, res)=>{
+    const data = await Image.find({})
+    // console.log({data})
+    res.render("allImages", {data: data})
+})
+
 app.get('/', async (req, res)=>{
     const data = await Image.find({})
     // console.log({data})
