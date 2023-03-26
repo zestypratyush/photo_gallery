@@ -37,7 +37,7 @@ app.post('/new',singleUpload, addImage);
 
 app.get('/', async (req, res)=>{
     const data = await Image.find({})
-    console.log({data})
+    // console.log({data})
     res.render("home", {data: data})
 })
 

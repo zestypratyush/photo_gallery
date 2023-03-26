@@ -1,0 +1,38 @@
+<main class="d-flex flex-column">
+  <div class="px-3 pb-5 h-800">
+    <div>
+      <!-- <h1>Photo Gallery</h1> -->
+      <p class="lead"> Welcome to PhotoGallery!</p>
+    </div>
+
+  </div>
+  <section>
+    <div class="container" id="zoom-image">
+
+
+      <div class="row">
+        <% for (let i = data.length-1; i >=0; i--) { %>
+        <div class="col-md-4 col-12 p-2 d-flex justify-content-center" onclick="handleClick(i)">
+          <img src="<%= data[i].image_url %>" alt="<%= data[i].image_name %>" width="100%">
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="modal d-none">
+    <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+    <% for (let i = data.length-1; i >=0; i--) { %>
+    <div class="mySlides">
+      <div class="numbertext"><%i+"/"+data.length%></div>
+      <img src="<%= data[i].image_url %>" alt="<%= data[i].image_name %>" width="100%">
+    </div>
+    <div class="col-md-4 col-12 p-2 d-flex justify-content-center">
+      <img src="<%= data[i].image_url %>" alt="<%= data[i].image_name %>" width="100%">
+    </div>
+    <% } %>
+    <button class="next" onclick="plusSlides(1)">&#10095;</button>
+  </section>
+
+</main>
